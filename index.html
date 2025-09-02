@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X Shop — X Points</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffa64d, #e68a00);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #ff9900;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #e68a00;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .balance {
+      text-align: center;
+      padding: 15px;
+      font-size: 1.2rem;
+      background-color: #ffd27f;
+      color: #000;
+      font-weight: bold;
+      border-bottom: 2px solid #e68a00;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #ff9900;
+      border: 2px solid #e68a00;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .product-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .product-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .product-card button {
+      padding: 8px 20px;
+      background-color: #fff176;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .product-card button:hover {
+      background-color: #ffecb3;
+    }
+
+    /* Confete */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #fff176;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      animation: confetti-fall 1s forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(calc(-50px + 100px * var(--randX)), calc(-100px + 200px * var(--randY))) rotate(360deg); opacity: 0; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e68a00;
+      font-size: 0.9em;
+      border-top: 2px solid #ff9900;
+    }
+
+    @media(max-width: 600px){
+      .product-card h3 { font-size: 1rem; }
+      .product-card p { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>X Shop</h1>
+  </header>
+
+  <div class="balance">
+    Saldo: <strong>∞ X Points</strong>
+  </div>
+
+  <main>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x150.png?text=Produto+1" alt="Produto 1">
+        <h3>Produto 1</h3>
+        <p>100 X Points</p>
+        <button onclick="buyProduct(this)">🛒 Comprar</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x150.png?text=Produto+2" alt="Produto 2">
+        <h3>Produto 2</h3>
+        <p>50 X Points</p>
+        <button onclick="buyProduct(this)">🛒 Comprar</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x150.png?text=Produto+3" alt="Produto 3">
+        <h3>Produto 3</h3>
+        <p>30 X Points</p>
+        <button onclick="buyProduct(this)">🛒 Comprar</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x150.png?text=Produto+4" alt="Produto 4">
+        <h3>Produto 4</h3>
+        <p>10 X Points</p>
+        <button onclick="buyProduct(this)">🛒 Comprar</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 X Shop — X Points infinitos
+  </footer>
+
+  <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+
+  <script>
+    function buyProduct(button) {
+      const audio = document.getElementById('click-sound');
+      audio.currentTime = 0;
+      audio.play();
+
+      // Criar confete
+      const card = button.closest('.product-card');
+      for (let i=0; i<10; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.setProperty('--randX', Math.random());
+        confetti.style.setProperty('--randY', Math.random());
+        card.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1000);
+      }
+
+      alert(`Você comprou ${card.querySelector('h3').textContent}!`);
+    }
+  </script>
+
+</body>
+</html>
