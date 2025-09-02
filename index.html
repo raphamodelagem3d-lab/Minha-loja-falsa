@@ -192,13 +192,16 @@
     © 2025 X Shop — X Points infinitos
   </footer>
 
+  <!-- Música de fundo da lojinha -->
+  <audio id="shop-music" src="Wii shop Channel.mp3" autoplay loop></audio>
+
   <script>
     function buyProduct(button) {
-      // Criar um novo áudio a cada clique
-      const audio = new Audio('button-19.mp3');
+      // Som do clique do botão
+      const audio = new Audio('Voicy_SFX 1.mp3');
       audio.play();
 
-      // Criar confete
+      // Confete
       const card = button.closest('.product-card');
       for (let i = 0; i < 10; i++) {
         const confetti = document.createElement('div');
