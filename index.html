@@ -192,18 +192,15 @@
     © 2025 X Shop — X Points infinitos
   </footer>
 
-  <!-- Som de clique atualizado -->
-  <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-19.mp3"></audio>
-
   <script>
     function buyProduct(button) {
-      const audio = document.getElementById('click-sound');
-      audio.currentTime = 0;
+      // Criar um novo áudio a cada clique
+      const audio = new Audio('button-19.mp3');
       audio.play();
 
       // Criar confete
       const card = button.closest('.product-card');
-      for (let i=0; i<10; i++) {
+      for (let i = 0; i < 10; i++) {
         const confetti = document.createElement('div');
         confetti.classList.add('confetti');
         confetti.style.setProperty('--randX', Math.random());
