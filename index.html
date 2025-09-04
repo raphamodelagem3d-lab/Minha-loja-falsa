@@ -31,13 +31,10 @@
     }
 
     header h1 {
+      font-family: 'TungstenBold', sans-serif;
       font-size: 2.5rem;
       color: #fff;
       text-shadow: 0 1px 3px rgba(255,165,0,0.6);
-    }
-
-    header h1 .x-letter {
-      font-family: 'TungstenBold', sans-serif;
     }
 
     .balance {
@@ -46,12 +43,6 @@
       color: #bf5f00;
       font-weight: bold;
       text-align: center;
-    }
-
-    .balance .x-letter {
-      font-family: 'TungstenBold', sans-serif;
-      color: #bf5f00;
-      text-shadow: 0 1px 2px rgba(255,165,0,0.6);
     }
 
     .music-controls {
@@ -218,16 +209,17 @@
       .product-card h3 { font-size: 1rem; }
       .product-card p { font-size: 0.9rem; }
     }
+
   </style>
 </head>
 <body>
 
 <header>
-  <h1><span class="x-letter">X</span> Shop</h1>
+  <h1>X Shop</h1>
 </header>
 
 <div class="balance">
-  Saldo: <strong><span class="x-letter">X</span> Points</strong>
+  Saldo: <strong>1000 X Points</strong>
 </div>
 
 <div class="music-controls">
@@ -244,7 +236,7 @@
       <img src="https://i.postimg.cc/rKqPCZwL/2-BF3-BF18-6-AC7-4-ECD-9560-8172363867-EF-1752458443086.png" 
            alt="i want for Christmas (Beta)">
       <h3>i want for Christmas (Beta)</h3>
-      <p>100</p>
+      <p>100 X Points</p>
       <button onclick="buyProduct(this)">🛒 Comprar</button>
     </div>
 
@@ -252,7 +244,7 @@
       <div class="badge">Novo</div>
       <img src="https://via.placeholder.com/200x150.png?text=Produto+2" alt="Produto 2">
       <h3>Produto 2</h3>
-      <p>50</p>
+      <p>50 X Points</p>
       <button onclick="buyProduct(this)">🛒 Comprar</button>
     </div>
 
@@ -260,7 +252,7 @@
       <div class="badge">Novo</div>
       <img src="https://via.placeholder.com/200x150.png?text=Produto+3" alt="Produto 3">
       <h3>Produto 3</h3>
-      <p>30</p>
+      <p>30 X Points</p>
       <button onclick="buyProduct(this)">🛒 Comprar</button>
     </div>
 
@@ -268,7 +260,7 @@
       <div class="badge">Novo</div>
       <img src="https://via.placeholder.com/200x150.png?text=Produto+4" alt="Produto 4">
       <h3>Produto 4</h3>
-      <p>10</p>
+      <p>10 X Points</p>
       <button onclick="buyProduct(this)">🛒 Comprar</button>
     </div>
 
@@ -283,3 +275,49 @@
 
 <script>
   let saldo = 1000;
+  const saldoEl = document.querySelector('.balance strong');
+  saldoEl.textContent = `${saldo} X Points`;
+
+  const shopMusic = document.getElementById("shop-music");
+
+  function stopShopMusic() {
+    shopMusic.pause();
+    shopMusic.currentTime = 0;
+  }
+
+  function buyProduct(button) {
+    const card = button.closest('.product-card');
+    const price = parseInt(card.querySelector('p').textContent);
+
+    if (saldo < price) {
+      alert("Saldo insuficiente!");
+      return;
+    }
+
+    saldo -= price;
+    saldoEl.textContent = `${saldo} X Points`;
+
+    shopMusic.play().catch(() => console.log("Clique em ▶️ para iniciar a música."));
+
+    const audio = new Audio('Voicy_SFX 1.mp3');
+    audio.play();
+
+    for (let i = 0; i < 10; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.setProperty('--randX', Math.random());
+      confetti.style.setProperty('--randY', Math.random());
+      confetti.style.backgroundColor = `hsl(30, 100%, ${50 + Math.random()*30}%)`;
+      card.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 1000);
+    }
+
+    const productName = card.querySelector('h3').textContent;
+    const soundcloudLink = "https://on.soundcloud.com/3YJEN8pobEEQ54FtRw";
+
+    alert(`Você comprou ${productName}!\nOuça a música aqui: ${soundcloudLink}`);
+  }
+</script>
+
+</body>
+</html>
