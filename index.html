@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>X Shop — X Points</title>
   <style>
-    /* Fonte Tungsten Bold local */
     @font-face {
       font-family: 'TungstenBold';
       src: url('Tungsten-Bold.ttf') format('truetype');
@@ -46,7 +45,6 @@
       border-bottom: 2px solid #e68a00;
     }
 
-    /* Controles da música */
     .music-controls {
       text-align: center;
       margin: 20px;
@@ -126,7 +124,6 @@
       background-color: #ffecb3;
     }
 
-    /* Confete */
     .confetti {
       position: absolute;
       width: 8px;
@@ -179,7 +176,6 @@
   <main>
     <div class="product-grid">
 
-      <!-- Produto 1 -->
       <div class="product-card">
         <img src="https://i.postimg.cc/rKqPCZwL/2-BF3-BF18-6-AC7-4-ECD-9560-8172363867-EF-1752458443086.png" 
              alt="i want for Christmas (Beta)">
@@ -188,7 +184,6 @@
         <button onclick="buyProduct(this)">🛒 Comprar</button>
       </div>
 
-      <!-- Produto 2 -->
       <div class="product-card">
         <img src="https://via.placeholder.com/200x150.png?text=Produto+2" alt="Produto 2">
         <h3>Produto 2</h3>
@@ -196,7 +191,6 @@
         <button onclick="buyProduct(this)">🛒 Comprar</button>
       </div>
 
-      <!-- Produto 3 -->
       <div class="product-card">
         <img src="https://via.placeholder.com/200x150.png?text=Produto+3" alt="Produto 3">
         <h3>Produto 3</h3>
@@ -204,7 +198,6 @@
         <button onclick="buyProduct(this)">🛒 Comprar</button>
       </div>
 
-      <!-- Produto 4 -->
       <div class="product-card">
         <img src="https://via.placeholder.com/200x150.png?text=Produto+4" alt="Produto 4">
         <h3>Produto 4</h3>
@@ -234,14 +227,13 @@
     function startShopMusic() {
       if (!musicStarted) {
         shopMusic.play().catch(() => {
-          console.log("O navegador bloqueou o autoplay. A música começará no próximo clique.");
+          console.log("Autoplay bloqueado. Clique em ▶️ para iniciar.");
         });
         musicStarted = true;
       }
     }
 
     function buyProduct(button) {
-      // Inicia a música no primeiro clique
       startShopMusic();
 
       // Som do clique
@@ -259,7 +251,12 @@
         setTimeout(() => confetti.remove(), 1000);
       }
 
-      alert(`Você comprou ${card.querySelector('h3').textContent}!`);
+      // Nome do produto
+      const productName = card.querySelector('h3').textContent;
+
+      // Mensagem com link do SoundCloud
+      const soundcloudLink = "https://on.soundcloud.com/3YJEN8pobEEQ54FtRw";
+      alert(`Você comprou ${productName}!\nOuça a música aqui: ${soundcloudLink}`);
     }
   </script>
 
