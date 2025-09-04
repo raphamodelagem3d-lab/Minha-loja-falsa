@@ -46,6 +46,26 @@
       border-bottom: 2px solid #e68a00;
     }
 
+    /* Controles da música */
+    .music-controls {
+      text-align: center;
+      margin: 20px;
+    }
+    .music-controls .button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #fff176;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .music-controls .button:hover {
+      background-color: #ffecb3;
+    }
+
     main {
       max-width: 1000px;
       margin: 20px auto;
@@ -149,6 +169,13 @@
     Saldo: <strong>∞ X Points</strong>
   </div>
 
+  <!-- Controles da música da Wii Shop -->
+  <div class="music-controls">
+    <button onclick="document.getElementById('shop-music').play()">▶️ Tocar</button>
+    <button onclick="document.getElementById('shop-music').pause()">⏸️ Pausar</button>
+    <button onclick="stopShopMusic()">⏹️ Parar</button>
+  </div>
+
   <main>
     <div class="product-grid">
 
@@ -198,6 +225,11 @@
   <script>
     const shopMusic = document.getElementById("shop-music");
     let musicStarted = false;
+
+    function stopShopMusic() {
+      shopMusic.pause();
+      shopMusic.currentTime = 0;
+    }
 
     function startShopMusic() {
       if (!musicStarted) {
